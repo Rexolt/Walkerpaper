@@ -1,152 +1,143 @@
- Walkerpaper
+  Háttérképkezelő Projekt
 
-Wallpaper Installer Script
-==========================
+Háttérképkezelő Projekt
+=======================
 
-Description
------------
+Leírás
+------
 
-This script is a simple and efficient solution for managing wallpapers on Linux systems. It allows users to:
+Ez a projekt egy egyszerű és hatékony megoldás a háttérképek kezelésére Linux rendszeren. A projekt tartalmaz:
 
-*   Install wallpapers from a specific directory.
-*   Automatically add them to the wallpaper chooser in supported desktop environments (GNOME, Cinnamon, KDE Plasma).
-*   Set one of the wallpapers as the default.
-*   Remove installed wallpapers and reset the default wallpaper.
+*   Előre telepített, stílusokra bontott háttérképeket.
+*   Egy `install.sh` telepítő scriptet, amely a háttérképeket azonnal elérhetővé teszi a rendszer háttérkép választójában.
+*   Egy `remove` funkciót, amely eltávolítja a telepített háttérképeket és visszaállítja az alapértelmezett háttérképet.
 
-Features
+Funkciók
 --------
 
-*   Supports multiple file formats: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.tiff`.
-*   Automatically detects the desktop environment and applies changes accordingly.
-*   Instantly adds wallpapers to the wallpaper chooser.
-*   Includes a `remove` option to clean up installed wallpapers and reset to defaults.
-*   Compatible with GNOME, Cinnamon, and KDE Plasma desktop environments.
+*   Több fájlformátum támogatása: `.jpg`, `.jpeg`, `.png`, `.bmp`, `.tiff`.
+*   Automatikus asztali környezet felismerés (GNOME, Cinnamon, KDE Plasma).
+*   Azonnali hozzáadás a háttérkép választóhoz.
+*   Előre telepített háttérképek, amelyek több stílusban érhetők el (természet, minimalista, városi tájkép, stb.).
 
-Requirements
-------------
+Követelmények
+-------------
 
-*   **GNOME/Cinnamon**: Ensure `gsettings` is installed.
-
-    sudo apt install dconf-cli
-
-*   **KDE Plasma**: Ensure `qdbus` is installed.
-
-    sudo apt install qdbus
-
-*   Linux operating system.
-
-Installation
-------------
-
-1.  Clone or download this repository.
-2.  Ensure the `install.sh` script is executable:
-    
-        chmod +x install.sh
-    
-3.  Place your wallpapers in the `wallpapers/` directory (create the directory if it doesn’t exist).
-
-Usage
------
-
-### Install Wallpapers
-
-To install wallpapers and make them available immediately in the wallpaper chooser, run:
-
-    ./install.sh install
-
-*   Wallpapers are copied to the `~/.local/share/backgrounds/` directory.
-*   The first wallpaper found is set as the default background.
-*   The wallpapers are added to the wallpaper chooser for supported desktop environments.
-
-### Remove Wallpapers
-
-To remove wallpapers and reset to the default wallpaper, run:
-
-    ./install.sh remove
-
-*   Deletes the wallpapers from `~/.local/share/backgrounds/`.
-*   Resets the desktop background to the system default.
-
-### Help
-
-If you need a reminder of the available commands, run the script without arguments:
-
-    ./install.sh
-
-How It Works
-------------
-
-1.  **Installation Process**:
-    *   Copies all supported wallpaper files (`.jpg`, `.jpeg`, `.png`, `.bmp`, `.tiff`) from the `wallpapers/` directory to `~/.local/share/backgrounds/`.
-    *   Detects the current desktop environment using the `$XDG_CURRENT_DESKTOP` variable.
-    *   Sets the first wallpaper as the default background and ensures all wallpapers are added to the chooser.
-2.  **Removal Process**:
-    *   Deletes all wallpapers from the `~/.local/share/backgrounds/` directory.
-    *   Resets the background to the system's default wallpaper.
-3.  **Desktop Environment Support**:
-    *   **GNOME/Cinnamon**: Uses `gsettings` to update the background and wallpaper chooser.
-    *   **KDE Plasma**: Uses `qdbus` to dynamically update the background.
-    *   **Other Environments**: Only copies the wallpapers; manual setup may be required.
-
-Testing
--------
-
-1.  Place sample wallpapers in the `wallpapers/` directory.
-2.  Run the installation command:
-    
-        ./install.sh install
-    
-3.  Open your wallpaper settings menu to confirm the wallpapers appear and one is set as the default.
-4.  Test the removal command:
-    
-        ./install.sh remove
-    
-5.  Confirm the wallpapers are removed and the default wallpaper is restored.
-
-Troubleshooting
----------------
-
-### Wallpapers Do Not Appear in the Chooser
-
-*   **GNOME/Cinnamon**: Ensure `gsettings` is installed:
+*   **GNOME/Cinnamon**: A `gsettings` telepítve legyen:
     
         sudo apt install dconf-cli
     
-*   **KDE Plasma**: Ensure `qdbus` is installed:
+*   **KDE Plasma**: A `qdbus` telepítve legyen:
+    
+        sudo apt install qdbus
+    
+*   Linux operációs rendszer.
+
+Telepítés
+---------
+
+1.  Clone-ozd vagy töltsd le a projektet.
+2.  Győződj meg róla, hogy az `install.sh` script futtatható:
+    
+        chmod +x install.sh
+    
+3.  Az előre telepített háttérképek már megtalálhatók a `wallpapers/` könyvtárban, stílusokra bontva.
+
+Használat
+---------
+
+### Háttérképek telepítése
+
+Futtasd az alábbi parancsot a háttérképek telepítéséhez:
+
+    ./install.sh install
+
+*   A háttérképek átmásolódnak a `~/.local/share/backgrounds/` könyvtárba.
+*   Az első található háttérkép automatikusan alapértelmezettként lesz beállítva.
+*   A háttérképek azonnal elérhetők a háttérkép választóban.
+
+### Háttérképek eltávolítása
+
+Futtasd az alábbi parancsot a telepített háttérképek eltávolításához:
+
+    ./install.sh remove
+
+*   A háttérképek törlődnek a `~/.local/share/backgrounds/` könyvtárból.
+*   A rendszer visszaáll az alapértelmezett háttérképre.
+
+### Súgó
+
+Ha emlékeztetőre van szükséged a parancsokhoz, futtasd a scriptet argumentumok nélkül:
+
+    ./install.sh
+
+Előre telepített háttérképek
+----------------------------
+
+A projekt tartalmaz előre telepített háttérképeket az alábbi stílusok szerint:
+
+*   **Természet:** Hegyek, tavak, erdők.
+*   **Minimalista:** Egyszerű, tiszta design.
+*   **Városi tájkép:** Felhőkarcolók, utcák.
+*   **Absztrakt:** Színes minták, művészi kompozíciók.
+
+A képek megtalálhatók a `wallpapers/` könyvtárban, és telepítés után azonnal elérhetők lesznek.
+
+Működés
+-------
+
+1.  **Telepítés**:
+    *   Az `wallpapers/` könyvtárban található támogatott fájlokat (`.jpg`, `.png`, stb.) átmásolja a `~/.local/share/backgrounds/` mappába.
+    *   Felismeri az aktuális asztali környezetet az `$XDG_CURRENT_DESKTOP` változó alapján.
+    *   Az első háttérképet automatikusan alapértelmezettként állítja be.
+2.  **Eltávolítás**:
+    *   Törli az összes háttérképet a `~/.local/share/backgrounds/` könyvtárból.
+    *   Visszaállítja az alapértelmezett háttérképet.
+
+Hibaelhárítás
+-------------
+
+### Nem jelennek meg a háttérképek
+
+*   **GNOME/Cinnamon**: Győződj meg róla, hogy a `gsettings` telepítve van:
+    
+        sudo apt install dconf-cli
+    
+*   **KDE Plasma**: Győződj meg róla, hogy a `qdbus` telepítve van:
     
         sudo apt install qdbus
     
 
-### Default Wallpaper Not Restored
+### Az alapértelmezett háttérkép nem áll vissza
 
-Verify the `DEFAULT_BACKUP_WALLPAPER` variable in the script points to a valid image.
+Ellenőrizd, hogy a `DEFAULT_BACKUP_WALLPAPER` változó helyes képre mutat a scriptben.
 
-### Logs
+### Naplózás
 
-To capture logs for debugging:
+A script kimenetét naplózhatod a hibák egyszerűbb megoldásához:
 
     
     ./install.sh install | tee install.log
     ./install.sh remove | tee remove.log
         
 
-Customization
--------------
+Testreszabás
+------------
 
-*   **Default Wallpaper**:
+*   **Alapértelmezett háttérkép**:
     
-    Modify the `DEFAULT_BACKUP_WALLPAPER` variable in the script to match the path of your system's default wallpaper:
+    A `DEFAULT_BACKUP_WALLPAPER` változó beállításával megadhatod az alapértelmezett háttérképet:
     
         DEFAULT_BACKUP_WALLPAPER="/path/to/default.jpg"
     
-*   **Add Support for More Formats**:
+*   **További formátumok támogatása**:
     
-    Edit the `SUPPORTED_FORMATS` array in the script to include additional file extensions:
+    Az `SUPPORTED_FORMATS` tömb bővítésével új fájlformátumokat adhatsz hozzá:
     
         SUPPORTED_FORMATS=("jpg" "jpeg" "png" "bmp" "tiff" "webp")
     
 
-License
--------
+Licenc
+------
 
-This project is open-source and available for use and modification under the [MIT License](LICENSE).
+A projekt nyílt forráskódú, és az [GNU Licenc](LICENSE) alatt elérhető.
