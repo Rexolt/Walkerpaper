@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walkerpaper</title>
+</head>
+<body>
+    <h1>Walkerpaper</h1>
+
+    <h2>Description</h2>
+    <p>
+        Walkerpaper is a Linux wallpaper manager designed for simplicity and automation. It enables users to:
+    </p>
+    <ul>
+        <li>Install wallpapers from a specified directory.</li>
+        <li>Automatically make wallpapers available in the system wallpaper chooser for supported desktop environments (GNOME, Cinnamon, KDE Plasma).</li>
+        <li>Set a default wallpaper immediately after installation.</li>
+        <li>Remove installed wallpapers and reset the default wallpaper.</li>
+    </ul>
+
+    <h2>Features</h2>
+    <ul>
+        <li>Supports multiple file formats: <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.bmp</code>, <code>.tiff</code>.</li>
+        <li>Automatically detects the desktop environment and applies changes accordingly.</li>
+        <li>Adds wallpapers to the wallpaper chooser instantly.</li>
+        <li>Includes a <code>remove</code> command to clean up installed wallpapers and reset to system defaults.</li>
+        <li>Compatible with GNOME, Cinnamon, and KDE Plasma desktop environments.</li>
+    </ul>
+
+    <h2>Requirements</h2>
+    <ul>
+        <li><strong>GNOME/Cinnamon</strong>: Ensure <code>gsettings</code> is installed:
+            <pre><code>sudo apt install dconf-cli</code></pre>
+        </li>
+        <li><strong>KDE Plasma</strong>: Ensure <code>qdbus</code> is installed:
+            <pre><code>sudo apt install qdbus</code></pre>
+        </li>
+        <li>Linux operating system.</li>
+    </ul>
+
+    <h2>Installation</h2>
+    <ol>
+        <li>Clone or download this repository.</li>
+        <li>Make the <code>install.sh</code> script executable:
+            <pre><code>chmod +x install.sh</code></pre>
+        </li>
+        <li>Place your wallpapers in the <code>wallpapers/</code> directory (create the directory if it doesn’t exist).</li>
+    </ol>
+
+    <h2>Usage</h2>
+    <h3>Install Wallpapers</h3>
+    <p>To install wallpapers and make them available immediately in the wallpaper chooser, run:</p>
+    <pre><code>./install.sh install</code></pre>
+    <ul>
+        <li>Wallpapers are copied to the <code>~/.local/share/backgrounds/</code> directory.</li>
+        <li>The first wallpaper found is set as the default background.</li>
+        <li>Wallpapers are automatically added to the system wallpaper chooser.</li>
+    </ul>
+
+    <h3>Remove Wallpapers</h3>
+    <p>To remove wallpapers and reset the system default wallpaper, run:</p>
+    <pre><code>./install.sh remove</code></pre>
+    <ul>
+        <li>Deletes the wallpapers from <code>~/.local/share/backgrounds/</code>.</li>
+        <li>Resets the desktop background to the system's default wallpaper.</li>
+    </ul>
+
+    <h3>Help</h3>
+    <p>To see available commands, run the script without arguments:</p>
+    <pre><code>./install.sh</code></pre>
+
+    <h2>How It Works</h2>
+    <ol>
+        <li><strong>Installation Process</strong>:
+            <ul>
+                <li>Copies all supported wallpaper files (<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.bmp</code>, <code>.tiff</code>) from the <code>wallpapers/</code> directory to <code>~/.local/share/backgrounds/</code>.</li>
+                <li>Detects the current desktop environment using the <code>$XDG_CURRENT_DESKTOP</code> variable.</li>
+                <li>Sets the first wallpaper as the default background and makes all wallpapers available in the chooser.</li>
+            </ul>
+        </li>
+        <li><strong>Removal Process</strong>:
+            <ul>
+                <li>Deletes all wallpapers from the <code>~/.local/share/backgrounds/</code> directory.</li>
+                <li>Resets the desktop background to the system's default wallpaper.</li>
+            </ul>
+        </li>
+        <li><strong>Desktop Environment Support</strong>:
+            <ul>
+                <li><strong>GNOME/Cinnamon</strong>: Uses <code>gsettings</code> to update the background and wallpaper chooser.</li>
+                <li><strong>KDE Plasma</strong>: Uses <code>qdbus</code> to dynamically update the background.</li>
+                <li><strong>Other Environments</strong>: Copies the wallpapers to the target directory; manual setup may be required.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Testing</h2>
+    <ol>
+        <li>Place sample wallpapers in the <code>wallpapers/</code> directory.</li>
+        <li>Run the installation command:
+            <pre><code>./install.sh install</code></pre>
+        </li>
+        <li>Open the wallpaper settings menu in your desktop environment and confirm the wallpapers appear.</li>
+        <li>Run the removal command:
+            <pre><code>./install.sh remove</code></pre>
+        </li>
+        <li>Confirm the wallpapers are removed and the default wallpaper is restored.</li>
+    </ol>
+
+    <h2>Troubleshooting</h2>
+    <h3>Wallpapers Do Not Appear in the Chooser</h3>
+    <ul>
+        <li><strong>GNOME/Cinnamon</strong>: Ensure <code>gsettings</code> is installed:
+            <pre><code>sudo apt install dconf-cli</code></pre>
+        </li>
+        <li><strong>KDE Plasma</strong>: Ensure <code>qdbus</code> is installed:
+            <pre><code>sudo apt install qdbus</code></pre>
+        </li>
+    </ul>
+
+    <h3>Default Wallpaper Not Restored</h3>
+    <p>Ensure the <code>DEFAULT_BACKUP_WALLPAPER</code> variable in the script points to a valid image.</p>
+
+    <h3>Logs</h3>
+    <p>To capture logs for debugging, run:</p>
+    <pre><code>
+./install.sh install | tee install.log
+./install.sh remove | tee remove.log
+    </code></pre>
+
+    <h2>Customization</h2>
+    <ul>
+        <li><strong>Default Wallpaper</strong>:
+            <p>Modify the <code>DEFAULT_BACKUP_WALLPAPER</code> variable in the script to point to the system's default wallpaper path:</p>
+            <pre><code>DEFAULT_BACKUP_WALLPAPER="/path/to/default.jpg"</code></pre>
+        </li>
+        <li><strong>Add Support for More Formats</strong>:
+            <p>Edit the <code>SUPPORTED_FORMATS</code> array in the script to include additional file extensions:</p>
+            <pre><code>SUPPORTED_FORMATS=("jpg" "jpeg" "png" "bmp" "tiff" "webp")</code></pre>
+        </li>
+    </ul>
+
+    <h2>License</h2>
+    <p>Walkerpaper is licensed under the GNU General Public License v3.0. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+</body>
+</html>
